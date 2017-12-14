@@ -13,7 +13,9 @@ class App extends Component {
     this.state = {
       championships: {},
       loading: true,
-    }
+    };
+
+    this.saveData = this.saveData.bind(this);
   }
   componentDidMount() {
     base.syncState('championships', {
@@ -22,26 +24,24 @@ class App extends Component {
       asArray: true,
       then() {
         this.setState({ loading: false });
-        const { championships } = this.state;
-        championships[0].coaches = {
-          'Marcel Chamusca*',
-          'Zico Correa',
-          'Marcello Lippi',
-          'Diegol Oliveira',
-          'Jaderley Luxemburgo',
-          'Rodrigol Oliveira',
-          'Vitor Zagallo*',
-          'Cassio Gaúcho',
-          'Thigato Villasboas',
-          'Toni Sanches',
-          'Brunno de OliTetta',
-          'Renato Galvolotte',
-          'Marcel Frescoroni*',
-          'Richard Fucks',
-        }
+        this.updateRace();
       }
     });
   }
+
+  saveData() {
+    // this.setState({
+    //   championships: []
+    // })
+  }
+
+  updateRace() {
+    const { championships } = this.state;
+    championships.forEach(champ => {
+      console.log(champ);
+    })
+  }
+
   render() {
     const { championships } = this.state;
     console.log(championships);
@@ -51,9 +51,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">WIFIW - Corrida dos campeões 2018</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="save">
+          <button onClick={this.saveData}>CLICK ME</button>
+        </div>
       </div>
     );
   }
