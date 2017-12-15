@@ -7,11 +7,11 @@ html, body {
 }
 
 .App-logo {
+  transition: all 1s linear;
   height: 120px;
 }
 
 .App-header {
-  padding: 20px;
   color: #777;
 }
 
@@ -23,10 +23,23 @@ html, body {
   font-size: large;
 }
 
+.loadingMessage {
+  transition: opacity 0.5 linear;
+  opacity: 0;
+}
+
 .wrapper {
   max-width: 600px;
   margin: 0 auto;
   overflow: scroll;
+  transition: opacity 0.5 linear;
+  opacity: 1;
+}
+
+@media screen and (min-width: 600px) {
+  .wrapper {
+    max-width: 100%;
+  }
 }
 
 table {
@@ -59,4 +72,12 @@ td:nth-child(2) {
 
 .gold {
   background-color: gold;
+}
+
+.loading .loadingMessage{
+  opacity: 1;
+}
+
+.loading .wrapper {
+  opacity: 0;
 }

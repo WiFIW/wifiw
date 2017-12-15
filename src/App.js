@@ -49,6 +49,7 @@ class App extends Component {
   }
 
   render() {
+    const { loading } = this.state;
     const { championships, coaches, bonus } = this.state.wifiw;
     const headerTable = championships.concat(bonus).map(champ => <th>{champ.name}</th>);
     const tableData = [];
@@ -99,8 +100,6 @@ class App extends Component {
 
     tableData.reverse();
 
-    console.log(tableData);
-
     const content = [];
 
     if (tableData.length > 0) {
@@ -124,29 +123,30 @@ class App extends Component {
       }));
     }
 
-    console.log(content);
+    const loadingClass = loading ? 'loading' : '';
 
     return (
-      <div className="App">
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+      <div className={`App ${loadingClass}`}>
         <header className="App-header">
           <img src={wifiwLogo} className="App-logo" alt="WIFIW" />
           <h1 className="App-title">WIFIW - Corrida dos campeões 2017/2018</h1>
+          <p class="loadingMessage">Carregando...</p>
         </header>
-
-        <div className="wrapper">
-          <table>
-            <tbody>
-              <tr>
-                <th>Posição</th>
-                <th>Treinador</th>
-                <th>Total</th>
-                <th>Média</th>
-                {headerTable}
-              </tr>
-              {content}
-            </tbody>
-          </table>
+        <div>
+          <div className="wrapper">
+            <table>
+              <tbody>
+                <tr>
+                  <th>Posição</th>
+                  <th>Treinador</th>
+                  <th>Total</th>
+                  <th>Média</th>
+                  {headerTable}
+                </tr>
+                {content}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );
