@@ -89,8 +89,8 @@ class App extends Component {
     tableData.sort((a, b) => {
       if (a[1] < b[1]) return -1;
       if (a[1] > b[1]) return 1;
-      if (a[1] == b[1] && a[lastChampIndex] < b[lastChampIndex]) return -1;
-      if (a[1] == b[1] && a[lastChampIndex] > b[lastChampIndex]) return 1;
+      if (a[1] === b[1] && a[lastChampIndex] < b[lastChampIndex]) return -1;
+      if (a[1] === b[1] && a[lastChampIndex] > b[lastChampIndex]) return 1;
       return 0;
     })
 
@@ -99,9 +99,14 @@ class App extends Component {
     const content = [];
 
     if (tableData.length > 0) {
-      content.push(tableData.map(line => {
-        const lineContent = line.map(block => !isNaN(block) ? <td>{block}</td> : <td>-</td>);
-        return <tr>{lineContent}</tr>;
+      content.push(tableData.map((line, index) => {
+        const lineContent = line.map((block, blockIndex) => !isNaN(block) || blockIndex === 0 ? <td>{block}</td> : <td>-</td>);
+        return (
+          <tr>
+            <td>{index + 1}</td>
+            {lineContent}
+          </tr>
+        );
       }));
     }
 
