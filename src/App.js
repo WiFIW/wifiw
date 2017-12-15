@@ -99,11 +99,22 @@ class App extends Component {
 
     tableData.reverse();
 
+    console.log(tableData);
+
     const content = [];
 
     if (tableData.length > 0) {
       content.push(tableData.map((line, index) => {
-        const lineContent = line.map((block, blockIndex) => !isNaN(block) || blockIndex === 0 ? <td>{block}</td> : <td>-</td>);
+        const lineContent = line.map((block, blockIndex) => {
+          if (!isNaN(block) || blockIndex === 0) {
+            let blockClass = '';
+            if (block === 10 && blockIndex > 2) blockClass = 'gold';
+            if (block === 8 && blockIndex > 2) blockClass = 'silver';
+            if (block === 6 && blockIndex > 2) blockClass = 'bronze';
+            return <td className={blockClass}>{block}</td>;
+          }
+          return <td>-</td>;
+        });
         return (
           <tr>
             <td>{index + 1}</td>

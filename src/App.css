@@ -48,3 +48,15 @@ th:nth-child(2),
 td:nth-child(2) {
   min-width: 140px;
 }
+
+.bronze {
+  background-color: #d77a1c;
+}
+
+.silver {
+  background-color: silver;
+}
+
+.gold {
+  background-color: gold;
+}
