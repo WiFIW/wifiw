@@ -19,7 +19,7 @@ class App extends Component {
       loading: true,
     }
 
-    this.filterNumbers = this.filterNumbers.bind(this);
+    this.getOnlyNumbers = this.getOnlyNumbers.bind(this);
     this.getTotal = this.getTotal.bind(this);
   }
   componentDidMount() {
@@ -33,19 +33,19 @@ class App extends Component {
     });
   }
 
-  filterNumbers(array) {
+  getOnlyNumbers(array) {
     return array.filter(value => !isNaN(value)).length > 0
     ? array.filter(value => !isNaN(value))
     : [];
   }
 
   getTotal(array) {
-    if (this.filterNumbers(array).length === 0) return null;
+    if (this.getOnlyNumbers(array).length === 0) return null;
     return array.filter(value => !isNaN(value)).reduce((prev, act) => prev + act);
   }
 
   getAveragePerChamp(points, games) {
-    return !isNaN(points / games) ? points / games : null;
+    return !isNaN(points / games) ? (points / games).toFixed(2) : null;
   }
 
   render() {
@@ -56,12 +56,15 @@ class App extends Component {
 
     coaches.forEach((coach,index) => {
       const coachResults = [];
+      let champsParticipated = 0;
+
       championships.forEach(champ => {
         if (champ.coaches) {
           const result = champ.coaches.find(champCoach => {
             return champCoach.name === coach;
           });
           if (result === undefined) return coachResults.push({});
+          champsParticipated += 1;
           return coachResults.push(result.points);
         };
         coachResults.push({});
@@ -81,7 +84,7 @@ class App extends Component {
       tableData.push([
         coach, //name
         this.getTotal(coachResults), //total
-        this.getAveragePerChamp(this.getTotal(coachResults), this.filterNumbers(coachResults).length), //averagePerChamp
+        this.getAveragePerChamp(this.getTotal(coachResults), champsParticipated), //averagePerChamp
       ].concat(coachResults));
     });
 
@@ -114,20 +117,26 @@ class App extends Component {
 
     return (
       <div className="App">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
         <header className="App-header">
-          <img src={wifiwLogo} className="App-wifiwLogo" alt="WIFIW" />
+          <img src={wifiwLogo} className="App-logo" alt="WIFIW" />
           <h1 className="App-title">WIFIW - Corrida dos campeões 2017/2018</h1>
         </header>
+
+        <div className="wrapper">
           <table>
-            <tr>
-              <th>Posição</th>
-              <th>Treinador</th>
-              <th>Total</th>
-              <th>Média</th>
-              {headerTable}
-            </tr>
-            {content}
+            <tbody>
+              <tr>
+                <th>Posição</th>
+                <th>Treinador</th>
+                <th>Total</th>
+                <th>Média</th>
+                {headerTable}
+              </tr>
+              {content}
+            </tbody>
           </table>
+        </div>
       </div>
     );
   }

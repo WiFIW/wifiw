@@ -1,16 +1,18 @@
+html, body {
+  font: normal 13px "Lato", sans-serif;
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 80px;
+  height: 120px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
   padding: 20px;
-  color: white;
+  color: #777;
 }
 
 .App-title {
@@ -21,7 +23,28 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: scroll;
+}
+
+table {
+  border: none;
+  position: relative;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+th,
+td {
+  min-width: 70px;
+  padding: 10px 0;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  min-width: 140px;
 }
