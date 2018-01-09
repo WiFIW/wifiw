@@ -53,7 +53,14 @@ class App extends Component {
     const { championships, coaches, bonus } = this.state.wifiw;
     const headerTable = championships.concat(bonus).map(champ => <th>{champ.name}</th>);
     const tableData = [];
-    const lastChampIndex = 4;
+    const lastChampIndex = (() => {
+      let total = 0;
+      let fields = 2;
+      championships.forEach((champ) => {
+        if (champ.coaches) total += 1;
+      })
+      return total + fields;
+    })();
 
     coaches.forEach((coach,index) => {
       const coachResults = [];
